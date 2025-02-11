@@ -84,11 +84,15 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.mfa",
     "allauth.socialaccount",
+    'rest_framework',
+    "simple_history",
+    'django_bootstrap_icons'
 ]
 
 LOCAL_APPS = [
     "chhad_mailtrack.users",
     # Your stuff: custom apps go here
+    "api",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -111,6 +115,8 @@ AUTH_USER_MODEL = "users.User"
 LOGIN_REDIRECT_URL = "users:redirect"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
 LOGIN_URL = "account_login"
+
+LOGOUT_REDIRECT_URL = "users:redirect"
 
 # PASSWORDS
 # ------------------------------------------------------------------------------
@@ -146,6 +152,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "simple_history.middleware.HistoryRequestMiddleware",
 ]
 
 # STATIC
@@ -275,7 +282,7 @@ ACCOUNT_LOGIN_METHODS = {"username"}
 # https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_EMAIL_REQUIRED = True
 # https://docs.allauth.org/en/latest/account/configuration.html
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_VERIFICATION = "none"
 # https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_ADAPTER = "chhad_mailtrack.users.adapters.AccountAdapter"
 # https://docs.allauth.org/en/latest/account/forms.html
