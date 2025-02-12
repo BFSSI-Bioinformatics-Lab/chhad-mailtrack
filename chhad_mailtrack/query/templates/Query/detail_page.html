@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <article class="media content-section">
+    <div class="media-body">
+      <div class="article-metadata ">
+        <div class="d-flex flex-row justify-content-between mb-2">
+          <div class="">
+{#            <a class="mr-3 d-flex flex-row align-items-center" style="color: #007880;"#}
+{#                href="{% url 'user_list' query.evaluator.username %}">{{ query.evaluator }}</a>#}
+            <p>CQA <span style="color: #007880; margin-left: 5px;">
+              {{ query.id }}</span>  <span style="margin: 0 5px">|</span>  Last updated by
+            <span style="color: #007880; margin-left: 4px;">{{ query.evaluator }}</span></p>
+            {% if query.date_input|date:'F d, Y' == query.updated|date:'F d, Y' %}
+              <div>
+                <small class="align-items-end font-weight-bold font-italic">
+                  Posted:</small>
+                <small class="text-muted  align-items-end" style="margin-right: 5px">
+                {{ query.date_input|date:'F d, Y' }}</small>
+              </div>
+            {% elif query.date_input|date:'F d, Y' != query.updated|date:'F d, Y' %}
+              <div>
+                <small class="align-items-end font-weight-bold font-italic">
+                  Posted:</small>
+                <small class="text-muted  align-items-end" style="margin-right: 5px">
+                {{ query.date_input|date:'F d, Y' }}</small>
+               <!-- separator between dates -->
+                <small>|</small>
+                <small class="align-items-end font-weight-bold font-italic"
+                       style="margin-left: 5px"> Updated:</small>
+                <small class="text-muted  align-items-end">
+                {{ query.updated|date:'F d, Y' }}</small>
+              </div>
+
+            {% endif %}
+
+            <div class="mt-2">
+              {% if query.get_status_display == 'Completed' %}
+                  <small class="article-footer bg-final status-bg">{{ query.get_status_display }}</small>
+              {% elif query.get_status_display == 'Waiting for Approval' %}
+                  <small class="article-footer bg-waiting status-bg">{{ query.get_status_display }}</small>
+              {% else %}
+                  <small class="article-footer bg-progress status-bg">{{ query.get_status_display }}</small>
+              {% endif %}
+
+<!--              {% if query.get_quarter_display == 'Q1' %}-->
+<!--                <small class="article-footer bg-q1 status-bg"-->
+<!--                >{{ query.get_quarter_display }}</small>-->
+<!--              {% elif query.get_quarter_display == 'Q2' %}-->
+<!--                <small class="article-footer bg-q2 status-bg">{{ query.get_quarter_display }}</small>-->
+<!--              {% elif query.get_quarter_display == 'Q3' %}-->
+<!--                <small class="article-footer bg-q3 status-bg">{{ query.get_quarter_display }}</small>-->
+<!--              {% else %}-->
+<!--                <small class="article-footer bg-q4 status-bg">{{ query.get_quarter_display }}</small>-->
+<!--              {% endif %}-->
+            </div>
+          </div>
+
+          <div>
+            <!-- <small class="text-muted d-flex flex-row justify-content-end">{{ query.pathogen }}</small> -->
+
+            <div class="d-flex flex-row justify-content-end mt-2 mb-2">
+              <a class="btn btn-orange btn-sm" href="/">Update Query</a>
+                   {# href="{% url 'query_update' pk=query.id %}">Update Query</a> #}
+
+              <a class="btn btn-red btn-l-margin btn-sm" href="/">Delete Query</a>
+                   {# href="{% url 'query_delete' pk=query.id %}">Delete Query</a> #}
+            </div>
+
+            <div class="d-flex flex-row">
+              <small class=" d-flex align-items-center" style="margin-left: 10px;">
+                Section Head: <span class="text-muted d-flex align-items-end" style="margin-left: 4px;">{{ query.section_head }}</span>
+              </small>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+
+
+      <div class="d-flex flex-row mb-2 justify-content-around mt-3">
+        <div class="d-flex flex-row">
+            <small class=" d-flex align-items-end" style="margin-left: 1px; margin-right: 10px;">
+                Date received:
+                <span class="text-muted d-flex align-items-end"
+                style="margin-left: 2px;">{{ query.date_chhad_received|date:'F d, Y' }}</span>
+            </small>
+            <span class="vr"></span>
+            <small class=" d-flex align-items-end" style="margin-left: 10px; margin-right: 10px;">
+                Date in to Evaluator:
+                <span class="text-muted d-flex align-items-end"
+                style="margin-left: 2px;">{{ query.date_assigned_to_evaluator|date:'F d, Y' }}</span> </small>
+            <span class="vr"></span>
+                <small class=" d-flex align-items-center" style="margin-left: 10px; min-width: 245px;">
+                    Date in to Section Head:
+                <span class="text-muted d-flex align-items-end" style="margin-left: 2px;">{{ query.date_to_sections_head_for_approval|date:'F d, Y' }}</span> </small>
+
+        </div>
+      </div>
+
+      <hr style="margin: 1rem 4rem; opacity: 0.10;">
+
+
+      <div class="d-flex flex-row mb-2 justify-content-around">
+          <small class=" d-flex align-items-end" style="margin-left: 10px;">
+              Date Due:
+              <span class="text-muted d-flex align-items-end" style="margin-left: 10px;">{{ query.date_due|date:'F d, Y' }}</span> </small>
+          <span class="vr"></span>
+          <small class=" d-flex align-items-end" style="margin-left: 10px;">
+              Date Completed:
+              <span class="text-muted d-flex align-items-end" style="margin-left: 10px;">{{ query.date_completed|date:'F d, Y' }}</span> </small>
+      </div>
+
+      <hr style="margin: 1rem 4rem; opacity: 0.10;">
+
+      <div class="d-flex flex-row mb-2 justify-content-around mt-3">
+
+        <div class="card" style="min-width: 170px; max-width: 200px; border: none; background-color: #f7f7f8;">
+          <div class="card-body">
+            <h6 class="card-title text-center">Corresp. Type</h6>
+            <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+            <p class="card-text text-muted text-center">{{ query.get_corresp_type_display }}</p>
+
+          </div>
+        </div>
+
+        <div class="card" style="min-width: 170px; max-width: 200px; border: none; background-color: #f7f7f8;">
+          <div class="card-body">
+            <h6 class="card-title text-center">Track</h6>
+            <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+            <p class="card-text text-muted text-center">{{ query.get_track_display }}</p>
+
+          </div>
+        </div>
+        <div class="card" style="min-width: 170px; max-width: 200px; border: none; background-color: #f7f7f8;"">
+          <div class="card-body">
+            <h6 class="card-title text-center">Section</h6>
+            <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+            <p class="card-text text-muted text-center">{{ query.get_section_display }}</p>
+
+          </div>
+        </div>
+      </div>
+
+      <hr style="opacity: 0.15;">
+
+      <h2 class="article-title mt-2">{{ query.subject_line }}</h2>
+      <p class="article-content" style="overflow: auto;">{{ query.remarks }}</p>
+{#      <h4 class="article-content" style="overflow: auto;">Links:</h4>#}
+      <hr style="margin: 1rem 4rem; opacity: 0.10;">
+      <h5>Response:</h5>
+      <p class="article-content" style="overflow: auto;">{{ query.query_response }}</p>
+
+      {% for word in query.keywords_as_list %}
+        <small class="article-footer bg-yellow key-bg">{{ word }}</small>
+      {% endfor %}
+
+      <hr style="margin: 1rem 4rem; opacity: 0.10;">
+
+      <h5>Corresp. #: <span class="text-secondary">{{ query.correspondence_numb }}</span> </h5>
+{#      <p class="article-content" style="overflow: auto;">{{ query.correspondence_numb }}</p>#}
+
+      <h5>Reference #: <span class="text-secondary">{{ query.number_ref }}</span></h5>
+{#      <p class="article-content" style="overflow: auto;">{{ query.number_ref }}</p>#}
+
+      <h5>File #: <span class="text-secondary">{{ query.file_numb }}</span></h5>
+
+      <hr style="margin: 1rem 4rem; opacity: 0.10;">
+
+      <h5 class="mt-2">Peer Reviewed:</h5>
+      <p class="article-content" style="overflow: auto;">{{ query.peer_review }}</p>
+
+      <h5>Referred by:</h5>
+      <p class="article-content" style="overflow: auto;">{{ query.referred_by }}</p>
+
+      <h5>Additional information:</h5>
+      <p class="article-content" style="overflow: auto;">{{ query.additional_information }}</p>
+
+{#    {% if query.evaluator == user %}#}
+{#      <div style="margin-top: 20px;">#}
+{#        <a class="btn btn-green btn-sm"#}
+{#             href="{% url "query_update" pk=query.id%}">Update Query</a>#}
+{#        <a class="btn btn-red btn-l-margin btn-sm"#}
+{#             href="{% url "query_delete" pk=query.id%}">Delete Query</a>#}
+{#      </div>#}
+{#    {% endif %}#}
+
+  </article>
+
+{% endblock content %}
+

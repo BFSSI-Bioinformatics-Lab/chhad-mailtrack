@@ -178,7 +178,7 @@
             <h6 class="mt-2">Corresp #: <span class="text-secondary">{{ query.correspondence_numb }}</span>
             </h6>
             <h3 class="mt-2">
-                <a class="article-title mt-2" href="/"
+                <a class="article-title mt-2" href="{% url 'query_detail' pk=query.id %}"
             target="_blank">{{ query.subject_line }}</a></h3>
                 <!-- Add style = white-space:nowrap to add 3 points at the end -->
             <p class="article-content  text-truncate"

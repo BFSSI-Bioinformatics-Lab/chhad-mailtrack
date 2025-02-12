@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     path('', views.QueryView.as_view(), name='home_page'),
     # path('user/<str:username>', views.UserListView.as_view(), name='user_list'),
-    # path('query/<int:pk>/', views.QueryDetailView.as_view(), name='query_detail'),
+    path('query/<int:pk>/', views.QueryDetailView.as_view(), name='query_detail'),
     # path('query/new/', views.QueryCreateView.as_view(), name='query_create'),
     # path('query/<int:pk>/update/', views.QueryUpdateView.as_view(), name='query_update'),
     # path('query/<int:pk>/delete/', views.QueryDeleteView.as_view(), name='query_delete'),
