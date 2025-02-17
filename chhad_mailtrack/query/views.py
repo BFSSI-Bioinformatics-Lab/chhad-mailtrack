@@ -12,7 +12,7 @@ from api.models import Query
 from chhad_mailtrack.users.models import User
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
-# from . import forms
+from . import forms
 # Create your views here.
 
 
@@ -86,3 +86,15 @@ class QueryDetailView(LoginRequiredMixin, DetailView):
     model = Query
     template_name = 'Query/detail_page.html'
     context_object_name = 'query'
+
+class QueryCreateView(LoginRequiredMixin, CreateView):
+    model = Query
+    template_name = 'Query/query_form.html'
+    context_object_name = 'query'
+    form_class = forms.QueryForm
+    # fields = '__all__'
+
+    # set author in form
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
